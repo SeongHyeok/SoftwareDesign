@@ -12,7 +12,8 @@ codons = [['TTT', 'TTC'],
           ['ACT', 'ACC', 'ACA', 'ACG'],
           ['GCT', 'GCC', 'GCA', 'GCG'],
           ['TAT', 'TAC'],
-          ['TAA', 'TAG', 'TGA'],
+
+          ['TAA', 'TAG', 'TGA'],    # stop codons
           ['CAT', 'CAC'],
           ['CAA', 'CAG'],
           ['AAT', 'AAC'],
@@ -22,5 +23,5 @@ codons = [['TTT', 'TTC'],
           ['TGT', 'TGC'],
           ['TGG'],
           ['CGT', 'CGC', 'CGA', 'CGG', 'AGA', 'AGG'],
+
           ['GGT', 'GGC', 'GGA', 'GGG']]
-              
