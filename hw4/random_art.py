@@ -119,6 +119,8 @@ def remap_interval(val, input_interval_start, input_interval_end, output_interva
             (output_interval) * ( (float(val) - input_interval_start) / input_interval )
 
 def test1():
+    """ Tests fundamental functions above.
+    """
     f = build_random_function(3, 3)
     print f
     print evaluate_random_function(f, 0.5, 0.5)
@@ -127,17 +129,26 @@ def test1():
     print remap_interval(10, 0, 100, -1, 1)
 
 def step_1(min_depth, max_depth):
+    """ Create three random functions for RGB.
+        Step 1 of Part 3 in HW4.
+
+        min_depth: minimum depth for random function
+        max_depth: maximum depth for random function
+    """
     red = build_random_function(min_depth, max_depth)
     green = build_random_function(min_depth, max_depth)
     blue = build_random_function(min_depth, max_depth)
     return red, green, blue
 
 def test_step_1():
+    """ Tests step_1()
+    """
     red, green, blue = step_1(3, 5)
     print red, "//", green, "//", blue
 
 def step_2(width, height):
-    """ This function includes step 2, 3 and 4 of Part 3 in HW4
+    """ Create image whose size is given width and height and save to jpeg file.
+        This function includes step 2, 3 and 4 of Part 3 in HW4.
         Reference:
             http://en.wikibooks.org/wiki/Python_Imaging_Library/Editing_Pixels
             http://effbot.org/imagingbook/image.htm
@@ -164,6 +175,8 @@ def step_2(width, height):
     img.save("my_" + str(int(time.time())) + ".jpg", "JPEG")
 
 def test_step_2():
+    """ Tests step_2()
+    """
     step_2(400, 400)
 
 if __name__ == "__main__":
