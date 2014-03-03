@@ -7,10 +7,10 @@ Simple Web Crawler for HW5
 @detail:
     This python script crawls webpages from given url.
     1. Fetch webpage data from given url.
-    2. Extract link urls from fetched data.
+    2. Extract link urls from fetched webpage data.
     3. Standardize all urls and remove duplicates.
     4. Fetch webpage data from all standardized urls and save to a file.
-       (Hierarchical structure is remained as directories)
+       (Hierarchical structure is remained as directories.)
 
 @to-do-in-future:
     - Extract domain automatically.
@@ -30,6 +30,11 @@ import re
 import sys
 import os
 import time
+
+# BeautifulSoup4, it can be installed via sudo apt-get install python-bs4
+# References:
+#   http://www.crummy.com/software/BeautifulSoup/bs4/doc
+from bs4 import BeautifulSoup
 
 #############################################################################
 # Global variables
@@ -191,6 +196,14 @@ def test_convert_url():
                 print "## Test Fail Here!!"
 
 #############################################################################
+# Parsing functions
+#############################################################################
+
+def extract_data(data):
+
+    return res
+
+#############################################################################
 # Main functions
 #############################################################################
 
@@ -254,7 +267,10 @@ def do_crawl(url, domain):
 
         # Save webpage to a file
         f = file(os.path.join(file_path, data_file_name), 'wt')
-        f.write(urllib.urlopen(url).read())
+        data = urllib.urlopen(url).read()
+        soup = BeautifulSoup(data)
+        data = soup.body.get_text() # extract text by removing tags
+        f.write(data)
         f.close()
 
     # Recover previous working path
