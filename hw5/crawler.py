@@ -200,7 +200,24 @@ def test_convert_url():
 #############################################################################
 
 def extract_data(data):
+    """ Extract visible text from data.
+    """
+    res = ''
 
+    soup = BeautifulSoup(data)
+    texts = soup.findAll(text=True)
+
+    def visible(element):
+        if element.parent.name in ['style', 'script', '[document]', 'head', 'title']:
+            return False
+        elif re.match('<!--.*-->', str(element)):
+            return False
+        return True
+
+    res = ' '.join(filter(visible, texts))
+    #res.replace('\t', '')
+    #res.replace('\n', '')
+    #res.replace('\r', '')
     return res
 
 #############################################################################
@@ -262,14 +279,24 @@ def do_crawl(url, domain):
         print "[%d/%d]" % (i + 1, l)
 
         # Create directory for saving file
-        file_path = os.path.join(domain_path, url)
-        os.system("mkdir -p %s" % (file_path))
+        file_dir_path = os.path.join(domain_path, url)
+        # followings are for Babson
+        file_dir_path = file_dir_path.replace('&', '')
+        file_dir_path = file_dir_path.replace(';', '')
+        os.system("mkdir -p %s" % (file_dir_path))
+
+        # Make file path
+        file_path = os.path.join(file_dir_path, data_file_name)
+        # followings are for Babson
+        file_path = file_path.replace('&', '')
+        file_path = file_path.replace(';', '')
 
         # Save webpage to a file
-        f = file(os.path.join(file_path, data_file_name), 'wt')
+        f = file(file_path, 'wt')
         data = urllib.urlopen(url).read()
-        soup = BeautifulSoup(data)
-        data = soup.body.get_text() # extract text by removing tags
+        #soup = BeautifulSoup(data)
+        #data = soup.body.get_text() # extract text by removing tags
+        data = extract_data(data)
         f.write(data)
         f.close()
 
