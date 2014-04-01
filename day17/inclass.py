@@ -18,7 +18,8 @@ class Cat(Animal):
         return "meow!"
 
 class Dog(Animal):
-    pass
+    def say_something(self):
+        return "bark!"
 
 if __name__ == '__main__':
     c = Cat()
